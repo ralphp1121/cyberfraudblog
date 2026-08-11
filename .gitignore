@@ -1,0 +1,17 @@
+node_modules/
+_site/
+.env
+.env.*
+cloudflared/*.json
+*.pem
+.last-digest
+check-and-deploy.log
+cloudflared/cloudflared.log
+.claude/settings.local.json
+
+# Internal-only: agent definitions, project planning, and docs.
+# Not published to the public repo — avoids exposing agent prompts
+# (prompt-injection surface) and internal infra/content strategy.
+.claude/
+.project_plan/
+docs/

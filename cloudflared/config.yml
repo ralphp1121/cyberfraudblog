@@ -1,0 +1,6 @@
+tunnel: c72dcae7-f6e3-4458-bc97-de799cb74688
+credentials-file: /Users/ralph/.cloudflared/c72dcae7-f6e3-4458-bc97-de799cb74688.json
+ingress:
+  - hostname: redflag.lplazo.com
+    service: http://localhost:8080
+  - service: http_status:404

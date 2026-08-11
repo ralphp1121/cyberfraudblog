@@ -1,0 +1,13 @@
+{
+  "name": "fraud-blog",
+  "version": "1.0.0",
+  "description": "Cyber Fraud & Bot Attacks Blog — static 11ty site",
+  "private": true,
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

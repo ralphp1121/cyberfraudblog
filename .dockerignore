@@ -1,0 +1,13 @@
+node_modules
+_site
+.git
+docs
+openspec
+.claude
+.project_plan
+content-pipeline
+cloudflared
+*.plist
+*.log
+.env
+.env.*
