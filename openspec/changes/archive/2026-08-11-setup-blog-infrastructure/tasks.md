@@ -56,7 +56,7 @@
 
 ## 8. Go live
 
-- [ ] 8.1 devops-engineer pushes to `main` (only after qa-security sign-off)
-- [ ] 8.2 Confirm GitHub Actions run succeeds and image lands in GHCR
-- [ ] 8.3 Confirm the Mac's poll script picks up the new image within one polling interval and redeploys
-- [ ] 8.4 Confirm the site is publicly reachable at the configured domain and the launch post renders correctly
+- [x] 8.1 devops-engineer pushes to `main` (only after qa-security sign-off)
+- [x] 8.2 Confirm GitHub Actions run succeeds and image lands in GHCR
+- [x] 8.3 Confirm the Mac's poll script picks up the new image within one polling interval and redeploys
+- [x] 8.4 Confirm the site is publicly reachable at the configured domain and the launch post renders correctly
