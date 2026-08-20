@@ -1,0 +1,25 @@
+{#
+  redflag wordmark.
+  Params (set before including):
+    variant — "" | "domain" | "descriptor" | "dark"
+    size    — "nav" | "footer" | "hero"   (default "nav")
+  Usage: {% set variant = "dark" %}{% include "_logo.njk" %}
+#}
+{%- set _v = variant | default("") -%}
+{%- set _s = size | default("nav") -%}
+{%- set _cls = "rf-logo rf-logo--" ~ _s ~ (" rf-logo--descriptor" if _v == "descriptor" else "") ~ (" rf-logo--dark" if _v == "dark" else "") -%}
+{%- set _tag = "span" if page.url == "/" else "a" -%}
+<{{ _tag }} class="{{ _cls }}"{% if _tag == "a" %} href="/" aria-label="redflag — home"{% endif %}>
+  <span class="rf-logo__mark">
+    <span class="rf-logo__red">red</span><span class="rf-logo__flag">flag</span>
+    <span class="rf-logo__square" aria-hidden="true"></span>
+  </span>
+  {%- if _v == "domain" %}
+  <span class="rf-logo__domain">redflag.lplazo.com</span>
+  {%- endif %}
+  {%- if _v == "descriptor" %}
+  <span class="rf-logo__rule" aria-hidden="true"></span>
+  <span class="rf-logo__descriptor">Cyber fraud &amp; bot attack analysis</span>
+  {%- endif %}
+</{{ _tag }}>
+{%- set variant = "" -%}

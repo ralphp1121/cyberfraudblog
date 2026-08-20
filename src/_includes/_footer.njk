@@ -1,0 +1,40 @@
+{#
+  Footer — soft surface, 80px vertical padding, 4-column grid:
+  logo+tagline | Reading | Research | About. Hairline rule, legal line.
+#}
+{% from "_components.njk" import TextLink %}
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <div style="--rf-logo-size: 26px;">
+          {% include "_logo.njk" %}
+        </div>
+        <p class="site-footer__tagline">Bot-driven fraud in e-commerce and online travel, and how AI is reshaping both the attacks and the defenses.</p>
+      </div>
+
+      <div class="site-footer__column">
+        <p class="site-footer__heading">Reading</p>
+        {{ TextLink("Latest posts", href="/", tone="muted") }}
+        {{ TextLink("Topics", href="/#topics", tone="muted") }}
+        {{ TextLink("Archive", href="/archive/", tone="muted") }}
+      </div>
+
+      <div class="site-footer__column">
+        <p class="site-footer__heading">Research</p>
+        {{ TextLink("Method notes", href="/about/#method", tone="muted") }}
+      </div>
+
+      <div class="site-footer__column">
+        <p class="site-footer__heading">About</p>
+        {{ TextLink("Who writes this", href="/about/", tone="muted") }}
+        {{ TextLink("Contact", href="/about/#contact", tone="muted") }}
+        {{ TextLink("Newsletter", href="/#subscribe", tone="muted") }}
+      </div>
+    </div>
+
+    <hr class="site-footer__rule">
+
+    <p class="site-footer__legal">&copy; {{ buildYear }} redflag.</p>
+  </div>
+</footer>

@@ -1,0 +1,107 @@
+---
+layout: base.njk
+---
+{% from "_components.njk" import Icon, BadgePill, TextLink, FeatureCard, ProductMockupCard, HeroIllustrationCard %}
+
+{%- set meta = postMeta[page.fileSlug] -%}
+{%- set bodyContent = content | stripLeadingH1 -%}
+{%- set halves = bodyContent | splitAfterFirstSection -%}
+{%- set leadHalf = halves[0] -%}
+{%- set restHalf = halves[1] -%}
+{%- set headings = bodyContent | extractH2Headings -%}
+
+{#- Related posts: the other 2 existing posts, excluding this one. #}
+{%- set relatedPosts = [] -%}
+{%- for post in collections.posts -%}
+  {%- if post.fileSlug != page.fileSlug -%}
+    {%- set relatedPosts = (relatedPosts.push(post), relatedPosts) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="breadcrumb__inner">
+    <a class="breadcrumb__link" href="/">Home</a>
+    {{ Icon("chevron-right", size=13) }}
+    <a class="breadcrumb__link" href="/archive/">Articles</a>
+    {{ Icon("chevron-right", size=13) }}
+    <span class="breadcrumb__current">{{ meta.category }}</span>
+  </div>
+</nav>
+
+<header class="article-header">
+  <div class="article-header__inner">
+    <div class="article-header__copy">
+      <div class="article-header__badges">
+        {{ BadgePill(meta.category, tone=meta.tone) }}
+        {{ BadgePill(meta.readTime ~ " min read", tone="outline") }}
+      </div>
+      <h1 class="article-header__title">{{ title }}</h1>
+      <p class="article-header__dek">{{ meta.dek }}</p>
+      <div class="article-header__byline">
+        <span class="article-header__avatar" aria-hidden="true">TD</span>
+        <span class="article-header__byline-text">
+          <span class="article-header__byline-name">The desk</span>
+          <span class="article-header__byline-date">{{ page.date.toISOString().slice(0, 10) }}</span>
+        </span>
+      </div>
+    </div>
+    <div class="article-header__figure">
+      {{ HeroIllustrationCard(alt="Article hero diagram — line-art asset pending", ratio="4 / 3") }}
+    </div>
+  </div>
+</header>
+
+<div class="article-layout">
+  <div class="article-layout__inner">
+    <article class="article-body">
+      {{ leadHalf | safe }}
+
+      {{ ProductMockupCard(label=meta.traceLabel, content=meta.traceContent, caption="Illustrative trace pattern — not customer data.") }}
+
+      <blockquote class="article-body__pullquote">{{ meta.pullQuote }}</blockquote>
+
+      {{ restHalf | safe }}
+    </article>
+
+    <aside class="article-aside">
+      <div class="article-aside__sticky">
+        {{ FeatureCard(
+          eyebrow="Weekly brief",
+          title="Get the next analysis first",
+          body="One email a week. Sources attached, no marketing.",
+          tone="teal",
+          footer='<a class=\"btn btn--onColor btn--sm\" href=\"/#subscribe\"><span class=\"btn__label\">Subscribe</span></a>'
+        ) }}
+
+        <div class="toc-card">
+          <p class="toc-card__heading">In this piece</p>
+          <nav class="toc-card__list" aria-label="Sections in this piece">
+            {% for heading in headings %}
+              <a class="toc-card__link" href="#{{ heading.id }}">{{ heading.text }}</a>
+            {% endfor %}
+          </nav>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+{% if relatedPosts.length %}
+<section class="related-band">
+  <div class="related-band__inner">
+    <p class="related-band__heading">Related analysis</p>
+    <div class="related-band__grid">
+      {% for post in relatedPosts %}
+        {%- set relatedMeta = postMeta[post.fileSlug] -%}
+        {{ FeatureCard(
+          eyebrow=relatedMeta.category,
+          title=post.data.title,
+          body=relatedMeta.dek,
+          tone=relatedMeta.tone,
+          footer='<span class="feature-card__meta">' ~ post.date.toISOString().slice(0, 10) ~ " &middot; " ~ relatedMeta.readTime ~ " min read</span>" ~ '<a class=\"btn btn--onColor btn--sm\" href=\"' ~ post.url ~ '\"><span class=\"btn__label\">Read</span></a>'
+        ) }}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

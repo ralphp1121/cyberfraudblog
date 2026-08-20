@@ -1,0 +1,45 @@
+---
+layout: base.njk
+---
+{% from "_components.njk" import Icon, BadgePill, CategoryTab, TextInput %}
+
+<section class="archive-hero">
+  <div class="archive-hero__inner">
+    <span class="archive-hero__eyebrow">Archive</span>
+    <h1 class="archive-hero__title">Every brief, by topic.</h1>
+    <p class="archive-hero__subhead">All analysis published to date, in one list — bot-driven fraud attacks and the defenses built against them.</p>
+  </div>
+</section>
+
+<section class="archive-filter">
+  <div class="archive-filter__inner">
+    <div class="archive-filter__tabs">
+      {{ CategoryTab("All", active=true) }}
+      {{ CategoryTab(postMeta["seat-spinning-denial-of-inventory"].category) }}
+      {{ CategoryTab(postMeta["agentic-ai-ota-scraping"].category) }}
+      {{ CategoryTab(postMeta["behavioral-biometrics-bot-detection"].category) }}
+    </div>
+    {{ TextInput("search", placeholder="Search the archive", type="search") }}
+  </div>
+  <div class="archive-filter__rule"></div>
+</section>
+
+<section class="archive-list">
+  <div class="archive-list__inner">
+    {% for post in collections.posts | reverse %}
+      {%- set meta = postMeta[post.fileSlug] -%}
+      <a class="archive-row" href="{{ post.url }}">
+        <span class="archive-row__dot" style="background: var(--{{ meta.tone }});" aria-hidden="true"></span>
+        <span class="archive-row__copy">
+          <span class="archive-row__title">{{ post.data.title }}</span>
+          <span class="archive-row__dek">{{ meta.dek }}</span>
+        </span>
+        <span class="archive-row__meta">
+          {{ BadgePill(meta.category, tone="outline") }}
+          <span class="archive-row__date">{{ post.date.toISOString().slice(0, 10) }}</span>
+          {{ Icon("arrow-up-right", size=16) }}
+        </span>
+      </a>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,122 @@
+{#
+  Shared component macros for the redflag design system.
+  Import with: {% from "_components.njk" import Button, TextLink, TextInput, BadgePill, CategoryTab, Icon, FeatureCard, ProductMockupCard, HeroIllustrationCard, ExpertCard %}
+#}
+
+{# ---------------------------------------------------------------- Button #}
+{#
+  variant: primary (default) | secondary | onColor | textLink
+  size: md (default) | sm
+  disabled: bool
+  iconLeft / iconRight: icon name string (rendered via Icon macro)
+  href: if set, renders an <a>; otherwise a <button>
+#}
+{% macro Button(label, variant="primary", size="md", disabled=false, iconLeft="", iconRight="", href="", type="button") %}
+{%- set _tag = "a" if href else "button" -%}
+{%- set _cls = "btn btn--" ~ variant ~ " btn--" ~ size ~ (" is-disabled" if disabled else "") -%}
+<{{ _tag }} class="{{ _cls }}"{% if href %} href="{{ href }}"{% else %} type="{{ type }}"{% endif %}{% if disabled %} aria-disabled="true"{% if _tag == "button" %} disabled{% endif %}{% endif %}>
+  {%- if iconLeft %}{{ Icon(iconLeft, size=16, color="onColor" if variant in ["primary", "onColor"] else "ink") }}{% endif -%}
+  <span class="btn__label">{{ label }}</span>
+  {%- if iconRight %}{{ Icon(iconRight, size=16, color="onColor" if variant in ["primary", "onColor"] else "ink") }}{% endif -%}
+</{{ _tag }}>
+{% endmacro %}
+
+{# --------------------------------------------------------------- TextLink #}
+{# tone: ink (default) | muted | onDark #}
+{% macro TextLink(label, href="#", tone="ink") %}
+<a class="text-link text-link--{{ tone }}" href="{{ href }}">{{ label }}</a>
+{% endmacro %}
+
+{# -------------------------------------------------------------- TextInput #}
+{#
+  state: default (default) | focused | error
+  label: optional visible label text
+  type: input type, default "text"
+#}
+{% macro TextInput(name, label="", placeholder="", state="default", type="text", value="") %}
+<label class="text-input-field{% if not label %} text-input-field--no-label{% endif %}">
+  {%- if label %}<span class="text-input-field__label">{{ label }}</span>{% endif %}
+  <input class="text-input text-input--{{ state }}" type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}"{% if value %} value="{{ value }}"{% endif %}{% if state == "error" %} aria-invalid="true"{% endif %}>
+</label>
+{% endmacro %}
+
+{# --------------------------------------------------------------- BadgePill #}
+{# tone: neutral (default) | severity | defense | analysis | threat | community | telemetry | outline #}
+{% macro BadgePill(label, tone="neutral") %}
+<span class="badge-pill badge-pill--{{ tone }}">{{ label }}</span>
+{% endmacro %}
+
+{# -------------------------------------------------------------- CategoryTab #}
+{% macro CategoryTab(label, active=false, href="#") %}
+<a class="category-tab{% if active %} is-active{% endif %}" href="{{ href }}">{{ label }}</a>
+{% endmacro %}
+
+{# --------------------------------------------------------------------- Icon #}
+{#
+  Lucide static SVG via <img> (raw SVGs are single-color; <img> can't inherit
+  currentColor, so ink/onDark colorways are applied with a CSS filter — see
+  .icon--ink / .icon--onDark in style.css).
+  color: ink (default) | onDark | onColor
+#}
+{% macro Icon(name, size=20, color="ink") %}
+<img class="icon icon--{{ color }}" src="https://unpkg.com/lucide-static/icons/{{ name }}.svg" width="{{ size }}" height="{{ size }}" alt="" aria-hidden="true">
+{% endmacro %}
+
+{# --------------------------------------------------------------- FeatureCard #}
+{#
+  The saturated single-color card — the system's primary visual element.
+  tone: crimson | teal | violet | amber | gold | cream(neutral)
+  eyebrow/title/body: text content; footer: raw HTML/markup (e.g. a Button call)
+  figure: optional raw HTML/markup slot above the title
+  href: if set, wraps the card in a link
+#}
+{% macro FeatureCard(eyebrow="", title="", body="", tone="cream", href="", figure="", footer="") %}
+{%- set _tag = "a" if href else "article" -%}
+<{{ _tag }} class="feature-card feature-card--{{ tone }}"{% if href %} href="{{ href }}"{% endif %}>
+  {%- if figure %}<div class="feature-card__figure">{{ figure | safe }}</div>{% endif %}
+  {%- if eyebrow %}<p class="feature-card__eyebrow">{{ eyebrow }}</p>{% endif %}
+  {%- if title %}<h3 class="feature-card__title">{{ title }}</h3>{% endif %}
+  {%- if body %}<p class="feature-card__body">{{ body }}</p>{% endif %}
+  {%- if footer %}<div class="feature-card__footer">{{ footer | safe }}</div>{% endif %}
+</{{ _tag }}>
+{% endmacro %}
+
+{# ---------------------------------------------------------- ProductMockupCard #}
+{# Dark shell, mono evidence-artifact content (log lines, traces, diffs). #}
+{% macro ProductMockupCard(label="", caption="", content="") %}
+<div class="mockup-card">
+  {%- if label %}<p class="mockup-card__label">{{ label }}</p>{% endif %}
+  <pre class="mockup-card__content"><code>{{ content }}</code></pre>
+  {%- if caption %}<p class="mockup-card__caption">{{ caption }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{# ------------------------------------------------------- HeroIllustrationCard #}
+{#
+  Line-art artifact well. Ships a labelled dashed placeholder until real
+  technical line-art is supplied — never substitute stock photography.
+  ratio: aspect-ratio value, e.g. "16 / 10" or "4 / 3"
+#}
+{% macro HeroIllustrationCard(alt="Line-art asset pending", ratio="16 / 10", caption="") %}
+<figure class="hero-illustration" style="aspect-ratio: {{ ratio }};">
+  <span class="hero-illustration__label">{{ alt }}</span>
+  {%- if caption %}<figcaption class="hero-illustration__caption">{{ caption }}</figcaption>{% endif %}
+</figure>
+{% endmacro %}
+
+{# --------------------------------------------------------------- ExpertCard #}
+{#
+  Contributor card, hairline shell. Avatar is an initials monogram (no photo
+  asset pipeline exists). actionLabel/actionHref are optional — omit both to
+  render without an action button (e.g. the About page usage).
+#}
+{% macro ExpertCard(name, specialization="", actionLabel="", actionHref="") %}
+{%- set _parts = name.split(" ") -%}
+{%- set _initials = (_parts[0][0] ~ (_parts[1][0] if _parts.length > 1 else "")) | upper -%}
+<div class="expert-card">
+  <span class="expert-card__avatar" aria-hidden="true">{{ _initials }}</span>
+  <p class="expert-card__name">{{ name }}</p>
+  {%- if specialization %}<p class="expert-card__specialization">{{ specialization }}</p>{% endif %}
+  {%- if actionLabel %}<div class="expert-card__action">{{ Button(actionLabel, variant="textLink", size="sm", href=actionHref) }}</div>{% endif %}
+</div>
+{% endmacro %}

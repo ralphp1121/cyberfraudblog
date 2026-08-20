@@ -1,0 +1,67 @@
+---
+layout: base.njk
+---
+{% from "_components.njk" import BadgePill, TextInput, Button %}
+
+<section class="about-masthead">
+  <div class="about-masthead__inner">
+    <span class="about-masthead__eyebrow">About</span>
+    <h1 class="about-masthead__title">The desk behind the brief.</h1>
+    <p class="about-masthead__mission">You're reading a working analyst's desk, not a vendor's marketing page. We track bot-driven fraud in e-commerce and online travel, and how AI is reshaping both the attacks and the defenses — explaining mechanisms, naming sources, and stating what a piece hasn't covered rather than overclaiming what it has.</p>
+  </div>
+</section>
+
+<section class="about-process" id="method">
+  <div class="about-process__inner">
+    <div class="about-process__card">
+      <p class="about-process__heading">How the desk works</p>
+      <ol class="about-process__steps">
+        <li class="about-process__step">
+          {{ BadgePill("1", tone="neutral") }}
+          <div class="about-process__step-copy">
+            <p class="about-process__step-label">Research</p>
+            <p class="about-process__step-desc">Every piece starts from primary sources — vendor threat reports, security research, and trade coverage — gathered and logged before a word of the piece is drafted.</p>
+          </div>
+        </li>
+        <li class="about-process__step">
+          {{ BadgePill("2", tone="neutral") }}
+          <div class="about-process__step-copy">
+            <p class="about-process__step-label">Verification</p>
+            <p class="about-process__step-desc">Claims and figures are checked against their original sources before anything moves forward — numbers carry their source and vintage, not just a citation.</p>
+          </div>
+        </li>
+        <li class="about-process__step">
+          {{ BadgePill("3", tone="neutral") }}
+          <div class="about-process__step-copy">
+            <p class="about-process__step-label">Draft</p>
+            <p class="about-process__step-desc">The piece is written in the desk's voice — mechanism explained before it's named, distinctions made explicit, limits stated rather than hidden.</p>
+          </div>
+        </li>
+        <li class="about-process__step">
+          {{ BadgePill("4", tone="neutral") }}
+          <div class="about-process__step-copy">
+            <p class="about-process__step-label">Publish</p>
+            <p class="about-process__step-desc">Published with a full Sources list attached. Corrections, when needed, are published — not silently patched.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="about-contact" id="contact">
+  <div class="about-contact__inner">
+    <div class="about-contact__card">
+      <p class="about-contact__heading">Get in touch</p>
+      <form class="about-contact__form">
+        {{ TextInput("name", label="Name", placeholder="Jordan Reyes") }}
+        {{ TextInput("email", label="Email", placeholder="you@company.com", type="email") }}
+        <label class="text-input-field">
+          <span class="text-input-field__label">Message</span>
+          <textarea class="text-input about-contact__textarea" name="message" rows="5"></textarea>
+        </label>
+        {{ Button("Send message", variant="primary") }}
+      </form>
+    </div>
+  </div>
+</section>

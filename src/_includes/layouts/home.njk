@@ -1,0 +1,109 @@
+---
+layout: base.njk
+---
+{% from "_components.njk" import Button, TextInput, BadgePill, CategoryTab, FeatureCard, ProductMockupCard, HeroIllustrationCard %}
+
+{#- Per-post category/tone/dek/readTime metadata lives in src/_data/postMeta.js, shared across home/article/archive templates. #}
+{%- set seatSpinning = collections.posts | byFileSlug("seat-spinning-denial-of-inventory") -%}
+{%- set agenticAi = collections.posts | byFileSlug("agentic-ai-ota-scraping") -%}
+{%- set behavioralBiometrics = collections.posts | byFileSlug("behavioral-biometrics-bot-detection") -%}
+
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <span class="hero__eyebrow">Field notes</span>
+      <h1 class="hero__title">Follow the money. Catch the bot.</h1>
+      <p class="hero__subhead">Bot-driven fraud in e-commerce and online travel, and how AI is reshaping both the attacks and the defenses. One brief a week, sources attached.</p>
+      <div class="hero__actions">
+        {{ Button("Subscribe", variant="primary") }}
+        {{ Button("Read the latest", variant="secondary", href=seatSpinning.url) }}
+      </div>
+    </div>
+    <div class="hero__figure">
+      {{ ProductMockupCard(
+        label="Live signal · anon-4471",
+        content="POST /cart/hold      200  ua=Chrome/126  score=0.12\nPOST /cart/hold      200  ua=Chrome/126  score=0.11\nGET  /seat/avail      200  ua=Chrome/126  score=0.14\nPOST /cart/hold      200  ua=Chrome/126  score=0.13\nDELETE /cart/hold     204  ua=Chrome/126  score=0.12",
+        caption="Illustrative trace pattern — not customer data."
+      ) }}
+    </div>
+  </div>
+</section>
+
+<section class="category-filter" id="topics">
+  <div class="category-filter__inner">
+    {{ CategoryTab("All", active=true) }}
+    {{ CategoryTab(postMeta["seat-spinning-denial-of-inventory"].category) }}
+    {{ CategoryTab(postMeta["agentic-ai-ota-scraping"].category) }}
+    {{ CategoryTab(postMeta["behavioral-biometrics-bot-detection"].category) }}
+  </div>
+</section>
+
+<section class="lead-band">
+  <div class="lead-band__inner">
+    <p class="lead-band__heading">This week's headline attack</p>
+    <div class="lead-band__grid">
+      {{ FeatureCard(
+        eyebrow=postMeta["seat-spinning-denial-of-inventory"].category,
+        title=seatSpinning.data.title,
+        body=postMeta["seat-spinning-denial-of-inventory"].dek,
+        tone=postMeta["seat-spinning-denial-of-inventory"].tone,
+        footer='<span class="feature-card__meta">' ~ seatSpinning.date.toISOString().slice(0, 10) ~ " &middot; " ~ postMeta["seat-spinning-denial-of-inventory"].readTime ~ " min read</span>" ~ Button("Read", variant="onColor", size="sm", href=seatSpinning.url)
+      ) }}
+      <div class="stat-grid">
+        <div class="stat-grid__cell">
+          <p class="stat-grid__value">40%</p>
+          <p class="stat-grid__label">of internet traffic was bad bots in 2025, up 3 points YoY (Thales/Imperva 2026 Bad Bot Report)</p>
+        </div>
+        <div class="stat-grid__cell">
+          <p class="stat-grid__value">53%</p>
+          <p class="stat-grid__label">of all internet traffic combined, good and bad bots (Thales/Imperva 2026 Bad Bot Report)</p>
+        </div>
+        <div class="stat-grid__cell stat-grid__cell--wide">
+          <p class="stat-grid__value">24%</p>
+          <p class="stat-grid__label">of isolated retail security incidents are attributed to business-logic abuse — the category seat spinning and denial-of-inventory fall under (Thales/Imperva 2026 Bad Bot Report)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mosaic">
+  <div class="mosaic__inner">
+    <p class="mosaic__heading">More this week</p>
+    <div class="mosaic__grid">
+      {{ FeatureCard(
+        eyebrow=postMeta["agentic-ai-ota-scraping"].category,
+        title=agenticAi.data.title,
+        body=postMeta["agentic-ai-ota-scraping"].dek,
+        tone=postMeta["agentic-ai-ota-scraping"].tone,
+        footer='<span class="feature-card__meta">' ~ agenticAi.date.toISOString().slice(0, 10) ~ " &middot; " ~ postMeta["agentic-ai-ota-scraping"].readTime ~ " min read</span>" ~ Button("Read", variant="onColor", size="sm", href=agenticAi.url)
+      ) }}
+      {{ FeatureCard(
+        eyebrow=postMeta["behavioral-biometrics-bot-detection"].category,
+        title=behavioralBiometrics.data.title,
+        body=postMeta["behavioral-biometrics-bot-detection"].dek,
+        tone=postMeta["behavioral-biometrics-bot-detection"].tone,
+        footer='<span class="feature-card__meta">' ~ behavioralBiometrics.date.toISOString().slice(0, 10) ~ " &middot; " ~ postMeta["behavioral-biometrics-bot-detection"].readTime ~ " min read</span>" ~ Button("Read", variant="onColor", size="sm", href=behavioralBiometrics.url)
+      ) }}
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="subscribe">
+  <div class="cta-band__inner">
+    <div class="cta-band__copy">
+      <h2 class="cta-band__title">Stop guessing, start detecting</h2>
+      <p class="cta-band__subhead">One brief a week on bot-driven fraud, with every source listed.</p>
+      <div class="cta-band__actions">
+        {{ TextInput("email", placeholder="you@company.com", type="email") }}
+        {{ Button("Subscribe", variant="primary") }}
+      </div>
+    </div>
+    {{ HeroIllustrationCard(alt="Network-topology diagram — asset pending", ratio="16 / 10") }}
+  </div>
+</section>
+
+<div class="mobile-subscribe-bar">
+  <span class="mobile-subscribe-bar__label">Next brief, weekly</span>
+  {{ Button("Subscribe", variant="primary", size="sm") }}
+</div>

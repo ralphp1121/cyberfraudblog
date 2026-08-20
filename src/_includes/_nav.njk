@@ -1,0 +1,44 @@
+{#
+  TopNav — 64px, non-sticky, 1280px container.
+  Desktop: logo + Home/Articles/Topics/About + search icon + Subscribe.
+  Mobile (below --bp-nav): logo + hamburger, toggles a full-height overlay menu.
+#}
+{% from "_components.njk" import Button, TextInput, Icon %}
+<header class="top-nav">
+  <div class="top-nav__inner">
+    <div class="top-nav__logo" style="--rf-logo-size: 38px;">
+      {% include "_logo.njk" %}
+    </div>
+
+    <nav class="top-nav__links" aria-label="Primary">
+      <a class="top-nav__link{% if page.url == '/' %} is-active{% endif %}" href="/">Home</a>
+      <a class="top-nav__link{% if page.url.startsWith('/archive/') %} is-active{% endif %}" href="/archive/">Articles</a>
+      <a class="top-nav__link" href="/#topics">Topics</a>
+      <a class="top-nav__link{% if page.url.startsWith('/about/') %} is-active{% endif %}" href="/about/">About</a>
+    </nav>
+
+    <div class="top-nav__actions">
+      <button class="top-nav__search" type="button" aria-label="Search">
+        {{ Icon("search", size=18) }}
+      </button>
+      {{ Button("Subscribe", variant="primary", size="sm") }}
+    </div>
+
+    <button class="top-nav__hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-menu" data-nav-toggle>
+      {{ Icon("menu", size=22) }}
+    </button>
+  </div>
+
+  <div class="mobile-nav-menu" id="mobile-nav-menu" data-nav-menu hidden>
+    <nav class="mobile-nav-menu__links" aria-label="Primary">
+      <a class="mobile-nav-menu__link{% if page.url == '/' %} is-active{% endif %}" href="/">Home</a>
+      <a class="mobile-nav-menu__link{% if page.url.startsWith('/archive/') %} is-active{% endif %}" href="/archive/">Articles</a>
+      <a class="mobile-nav-menu__link" href="/#topics">Topics</a>
+      <a class="mobile-nav-menu__link{% if page.url.startsWith('/about/') %} is-active{% endif %}" href="/about/">About</a>
+    </nav>
+    <div class="mobile-nav-menu__subscribe">
+      {{ TextInput("email", placeholder="you@company.com", type="email") }}
+      {{ Button("Subscribe", variant="primary") }}
+    </div>
+  </div>
+</header>

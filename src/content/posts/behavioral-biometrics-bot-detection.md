@@ -1,5 +1,5 @@
 ---
-layout: base.njk
+layout: layouts/article.njk
 title: "The Bot Check You Never See: How Behavioral Biometrics Score You Before Any CAPTCHA Loads"
 frame: defense
 date: 2026-08-10

@@ -1,10 +1,15 @@
+@import "tokens.css";
+@import "logo.css";
+@import "components.css";
+@import "nav-footer.css";
+@import "home.css";
+@import "article.css";
+@import "archive.css";
+@import "about.css";
+
 :root {
   color-scheme: light dark;
   --max-width: 760px;
-  --fg: #1a1a1a;
-  --bg: #ffffff;
-  --accent: #b3261e;
-  --muted: #555;
 }
 
 * {
@@ -13,9 +18,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--fg);
-  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: var(--canvas);
   line-height: 1.6;
 }
 
@@ -25,42 +30,17 @@ body {
   padding: 0 1.25rem;
 }
 
-.site-header {
-  border-bottom: 3px solid var(--accent);
-  padding: 1.25rem 0;
-}
-
-.site-header .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.site-title {
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: var(--fg);
-}
-
-.site-nav a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-}
-
 main {
   padding: 2rem 1.25rem;
 }
 
 h1, h2, h3 {
   line-height: 1.25;
+  color: var(--text-heading);
 }
 
 a {
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .post-list {
@@ -70,7 +50,7 @@ a {
 
 .post-list li {
   padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .post-list h2 {
@@ -78,20 +58,13 @@ a {
 }
 
 .post-meta {
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-.site-footer {
-  border-top: 1px solid #ddd;
-  padding: 1.5rem 0;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
 blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--primary);
   margin-left: 0;
   padding-left: 1rem;
-  color: var(--muted);
+  color: var(--text-muted);
 }

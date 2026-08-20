@@ -1,5 +1,5 @@
 ---
-layout: base.njk
+layout: layouts/article.njk
 title: "The Booking Wasn't Human: How AI Shopping Agents Are Becoming OTAs' New Scraping Problem"
 frame: attack
 date: 2026-08-12

@@ -5,26 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if title %}{{ title }} · {% endif %}Cyber Fraud &amp; Bot Attacks Blog</title>
   <meta name="description" content="Bot-driven fraud in e-commerce and online travel, and how AI is reshaping both the attacks and the defenses.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&family=Inter:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#101317">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="site-title" href="/">Cyber Fraud &amp; Bot Attacks Blog</a>
-      <nav class="site-nav">
-        <a href="/">Latest Posts</a>
-      </nav>
-    </div>
-  </header>
+  {% include "_nav.njk" %}
 
-  <main class="wrap">
+  <main>
     {{ content | safe }}
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>&copy; {{ buildYear }} Cyber Fraud &amp; Bot Attacks Blog. Reporting on bot-driven fraud and the AI arms race behind it.</p>
-    </div>
-  </footer>
+  {% include "_footer.njk" %}
+
+  <script src="/assets/js/nav.js"></script>
 </body>
 </html>

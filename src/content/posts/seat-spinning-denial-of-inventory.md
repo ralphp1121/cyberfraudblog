@@ -1,5 +1,5 @@
 ---
-layout: base.njk
+layout: layouts/article.njk
 title: "Seat Spinning: The Bot Attack That Empties Your Cart Without Ever Buying"
 frame: attack
 date: 2026-08-18
