@@ -1,5 +1,6 @@
 tunnel: c72dcae7-f6e3-4458-bc97-de799cb74688
 credentials-file: /Users/ralph/.cloudflared/c72dcae7-f6e3-4458-bc97-de799cb74688.json
+protocol: http2
 ingress:
   - hostname: redflag.lplazo.com
     service: http://localhost:8080
